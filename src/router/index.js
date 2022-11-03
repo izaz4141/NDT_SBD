@@ -8,7 +8,7 @@ links.map((category) => {
     routee.push({
       name: link.name,
       path: link.url,
-      component: link.component,
+      component: () => import(link.component),
     }),
   )
 })
