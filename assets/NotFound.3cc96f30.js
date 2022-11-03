@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as o,a as s}from"./index.449aee12.js";const c={},n={class:"flex justify-items-center justify-center text-3xl font-extrabold"},r=s("h1",null,"404, Not Found.",-1),_=[r];function a(d,f){return t(),o("div",n,_)}const l=e(c,[["render",a]]);export{l as default};
