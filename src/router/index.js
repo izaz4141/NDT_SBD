@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { links } from '../data/dummy'
+import NotFound from '../views/NotFound.vue'
 
 const routee = []
 links.map((category) => {
@@ -7,7 +8,7 @@ links.map((category) => {
     routee.push({
       name: link.name,
       path: link.url,
-      component: () => import(link.component),
+      component: link.component,
     }),
   )
 })
@@ -16,12 +17,12 @@ routee.push(
   {
     name: 'not-found',
     path: '/:pathMatch(.*)*',
-    component: () => import('../views/NotFound.vue'),
+    component: NotFound,
   },
   {
     name: 'bad-not-found',
     path: '/:pathMatch(.*)',
-    component: () => import('../views/NotFound.vue'),
+    component: NotFound,
   },
 )
 
