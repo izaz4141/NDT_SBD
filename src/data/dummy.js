@@ -29,7 +29,7 @@ export const links = [
         component: import('../views/DevPage.vue'),
       },
       {
-        name: 'user list',
+        name: 'user-list',
         url: '/dev/user_list',
         icon: 'fa-solid:users-cog',
         component: import('../views/UserList.vue'),
