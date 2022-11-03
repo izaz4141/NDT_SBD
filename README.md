@@ -1,6 +1,7 @@
 # Projek NDT SBD
 
 Projek ini dibuat menggunakan Vite Package Manager.
+[Kalau mau liat web kaya gimana](https://izaz4141.github.io/NDT_SBD/)
 
 ## Setup
 
@@ -48,4 +49,4 @@ The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs]
 
 ## Recommended IDE Setup
 
--   [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) + Prettier
+-   [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
