@@ -17,7 +17,7 @@
         <p class="font-semibold text-xl">Opsi Tema</p>
         <div class="mt-4">
           <button
-            v-if="isDark"
+            v-if="currentDark"
             class="bg-white border-2 border-black text-black py-2 px-4"
             @click="toggleMode('Light')"
           >
@@ -34,10 +34,11 @@
       </div>
       <div class="p-4 border-t-1 border-color ml-4">
         <p class="font-semibold text-xl">Warna Tema</p>
-        <div class="flex gap-3" v-for="(item, index) in themeColors">
+        <div class="flex gap-3">
           <div
+            v-for="(item, index) in themeColors"
             class="relative mt-2 cursor-pointer flex gap-5 items-center"
-            :key="item.name"
+            :key="index"
           >
             <button
               @click="setColor(item.color)"
@@ -71,7 +72,7 @@
     themeOpen.value = false
   }
   // const isDark = useDark()
-  const toggleDark = useToggle(currentDark.value)
+  const toggleDark = useToggle(currentDark)
   const toggleMode = (mode) => {
     toggleDark()
     console.log(mode)

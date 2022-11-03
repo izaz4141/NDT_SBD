@@ -2,11 +2,11 @@
   // This starter template is using Vue 3 <script setup> SFCs
   // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
   // import HelloWorld from './components/HelloWorld.vue'
-  import SideBar from './components/SideBar.vue';
-  import { ref, provide } from 'vue';
-  import { useDark } from '@vueuse/core';
-  import ThemePopup from './components/ThemePopup.vue';
-  import SetCon from './components/SetCon.vue';
+  import SideBar from './components/SideBar.vue'
+  import { ref, provide } from 'vue'
+  import { useDark } from '@vueuse/core'
+  import ThemePopup from './components/ThemePopup.vue'
+  import SetCon from './components/SetCon.vue'
 
   const currentColor = ref('#03C9D7')
   const activeMenu = ref(true)
@@ -25,7 +25,10 @@
   <div class="flex relative dark:bg-main-dark-bg">
     <SideBar />
     <SetCon />
-    <div class="dark:bg-main-bg bg-main-bg min-h-screen w-full">
+    <div
+      class="dark:bg-main-bg bg-main-bg min-h-screen w-full"
+      :class="{ 'md:ml-72': activeMenu, 'flex-2': !activeMenu }"
+    >
       <!-- navbar -->
       <div>
         <ThemePopup v-if="themeOpen" />

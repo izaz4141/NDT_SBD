@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-slate-200 border-r-2 border-zinc-900 text-black dark:text-white"
+    class="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-slate-200 border-r-2 border-zinc-900 text-black dark:text-white scroller"
   >
     <div
       class="h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10"
@@ -56,4 +56,11 @@
   })
 </script>
 
-<style lang="" scoped></style>
+<style scoped>
+  .scroller {
+    scrollbar-width: thin;
+  }
+  .scroller::-webkit-scrollbar {
+    width: 2vw;
+  }
+</style>
