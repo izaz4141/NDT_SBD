@@ -3,22 +3,39 @@
   // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
   // import HelloWorld from './components/HelloWorld.vue'
   import SideBar from './components/SideBar.vue'
-  import { ref, provide } from 'vue'
-  import { useDark } from '@vueuse/core'
+  import { ref, provide, onMounted } from 'vue'
+  import { useStorage, useDark, useStorageAsync } from '@vueuse/core'
   import ThemePopup from './components/ThemePopup.vue'
   import SetCon from './components/SetCon.vue'
+  import NavBar from './components/NavBar.vue'
 
-  const currentColor = ref('#03C9D7')
+  const user = ref(useStorageAsync('user', false, localStorage))
+
   const activeMenu = ref(true)
   const themeOpen = ref(false)
   const screenSize = ref(window.innerWidth)
-  const currentDark = ref(useDark())
+  const currentColor = ref(useStorage('colodMode', '#03C9D7', localStorage))
+  const currentDark = ref(useStorage('themeMode', useDark(), localStorage))
 
+  provide('user', user)
   provide('currentColor', currentColor)
   provide('activeMenu', activeMenu)
   provide('themeOpen', themeOpen)
   provide('screenSize', screenSize)
   provide('currentDark', currentDark)
+
+  const user_provider = async () => {
+    try {
+      const resp = await httpClient.get('/@me')
+      user.value = resp.data
+    } catch (error) {
+      console.log('Not Authorized')
+    }
+  }
+
+  onMounted(() => {
+    user_provider()
+  })
 </script>
 
 <template>
@@ -29,7 +46,7 @@
       class="dark:bg-main-bg bg-main-bg min-h-screen w-full"
       :class="{ 'md:ml-72': activeMenu, 'flex-2': !activeMenu }"
     >
-      <!-- navbar -->
+      <NavBar />
       <div>
         <ThemePopup v-if="themeOpen" />
         <router-view />

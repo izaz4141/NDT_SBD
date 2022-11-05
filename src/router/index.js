@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { links } from '../data/dummy'
 import NotFound from '../views/NotFound.vue'
-
+// route rendered statically because gh-pages cant get file after build
 const routee = []
 links.map((category) => {
   category.children.map((link) =>

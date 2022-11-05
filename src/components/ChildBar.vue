@@ -1,9 +1,7 @@
 <template>
-  <div class="mt-18">
-    <div v-if="links" v-for="item in links">
-      <div :key="item.title">
-        <TreeNode :node="item" />
-      </div>
+  <div v-if="links" v-for="item in links">
+    <div :key="item.title">
+      <TreeNode :node="item" />
     </div>
   </div>
 </template>

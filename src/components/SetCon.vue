@@ -2,10 +2,10 @@
   <div class="fixed right-4 bottom-4" :style="{ zindex: '1000' }">
     <button
       @click="HandleClick"
-      class="text-3x1 p-3 hover:drop-shadow-xl hover:bg-light-gray text-white"
+      class="p-2 hover:drop-shadow-xl hover:bg-light-gray bg-slate-300 dark:bg-main-dark-bg dark:hover:bg-secondary-dark-bg"
       :style="{ color: currentColor, borderRadius: '50%' }"
     >
-      <Icon icon="heroicons-outline:cog" />
+      <Icon icon="heroicons-outline:cog" class="text-2xl" />
     </button>
   </div>
 </template>

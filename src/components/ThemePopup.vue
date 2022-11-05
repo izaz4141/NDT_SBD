@@ -61,7 +61,7 @@
 <script setup>
   import { inject, ref } from 'vue'
   import { Icon } from '@iconify/vue'
-  import { useDark, useToggle } from '@vueuse/core'
+  import { useToggle } from '@vueuse/core'
   import { themeColors } from '../data/dummy'
 
   const themeOpen = inject('themeOpen', ref(false))
@@ -76,13 +76,11 @@
   const toggleMode = (mode) => {
     toggleDark()
     console.log(mode)
-    localStorage.setItem('themeMode', mode)
   }
 
   const setColor = (color) => {
     console.log(color)
     currentColor.value = color
-    localStorage.setItem('colorMode', color)
   }
 </script>
 
