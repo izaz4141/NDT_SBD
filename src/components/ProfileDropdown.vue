@@ -1,7 +1,7 @@
 <template>
   <div
     v-on-click-outside="handleProfileClose"
-    class="nav-item absolute right-1 top-16 bg-neutral-200 border-2 border-[#42464D] dark:bg-[#42464D] dark:border-zinc-900 pt-4 pb-4 pr-8 pl-8 rounded-lg w-96"
+    class="zindex absolute right-1 top-16 bg-neutral-200 border-2 border-[#42464D] dark:bg-[#42464D] dark:border-zinc-900 pt-4 pb-4 pr-8 pl-8 rounded-lg w-96"
   >
     <div class="flex justify-between items-center">
       <p class="font-semibold text-lg dark:text-gray-200">Profil User</p>
@@ -86,11 +86,13 @@
   import { vOnClickOutside } from '@vueuse/components'
   import avatar from '../assets/avatar_g1.jpg'
   import { userProfileData } from '../data/dummy'
+  import { useRouter } from 'vue-router'
 
   const user = inject('user')
   const currentColor = inject('currentColor', ref('#03C9D7'))
   const profileOpen = inject('profileOpen', ref(false))
 
+  const router = useRouter()
   const handleProfileClose = () => {
     profileOpen.value = false
   }
@@ -98,11 +100,17 @@
     console.log('Logout')
   }
   const handleLogin = () => {
+    router.push('/login')
     console.log('Login')
   }
   const handleRegister = () => {
+    router.push('/register')
     console.log('Register')
   }
 </script>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+  .zindex {
+    z-index: 100;
+  }
+</style>

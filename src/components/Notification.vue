@@ -1,7 +1,7 @@
 <template>
   <div
     v-on-click-outside="handleNotificationClose"
-    class="nav-item absolute right-5 md:right-40 top-16 bg-neutral-200 border-2 border-[#42464D] dark:bg-[#42464D] dark:border-zinc-900 pt-4 pb-4 pr-8 pl-8 rounded-lg w-96"
+    class="zindex absolute right-5 md:right-40 top-16 bg-neutral-200 border-2 border-[#42464D] dark:bg-[#42464D] dark:border-zinc-900 pt-4 pb-4 pr-8 pl-8 rounded-lg w-96"
   >
     <div class="flex justify-between items-center">
       <div class="flex gap-3">
@@ -69,4 +69,8 @@
   }
 </script>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+  .zindex {
+    z-index: 100;
+  }
+</style>

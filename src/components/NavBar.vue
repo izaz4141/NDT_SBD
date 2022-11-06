@@ -1,5 +1,7 @@
 <template>
-  <div class="fixed md:static bg-slate-200 dark:bg-main-dark-bg navbar w-full">
+  <div
+    class="fixed md:static bg-slate-200 dark:bg-main-dark-bg navbar w-full zindex"
+  >
     <div class="grid grid-cols-3 relative md:mx-6 top-0">
       <div class="flex justify-start relative">
         <!-- this is the sidebar toggle -->
@@ -93,4 +95,8 @@
   }
 </script>
 
-<style scoped></style>
+<style scoped>
+  .zindex {
+    z-index: 1000;
+  }
+</style>

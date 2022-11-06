@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed right-4 bottom-4" :style="{ zindex: '1000' }">
+  <div class="fixed right-4 bottom-4 zindex">
     <button
       @click="HandleClick"
       class="p-2 hover:drop-shadow-xl hover:bg-light-gray bg-slate-300 dark:bg-main-dark-bg dark:hover:bg-secondary-dark-bg"
@@ -21,4 +21,8 @@
   }
 </script>
 
-<style lang="" scoped></style>
+<style lang="css" scoped>
+  .zindex {
+    z-index: 1000;
+  }
+</style>

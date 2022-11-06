@@ -8,6 +8,7 @@
   import ThemePopup from './components/ThemePopup.vue'
   import SetCon from './components/SetCon.vue'
   import NavBar from './components/NavBar.vue'
+  import Footer from './components/Footer.vue'
 
   const user = ref(useStorageAsync('user', false, localStorage))
 
@@ -44,14 +45,16 @@
     <SetCon />
     <div
       class="dark:bg-main-bg bg-main-bg min-h-screen w-full"
-      :class="{ 'md:ml-72': activeMenu, 'flex-2': !activeMenu }"
+      :class="{ 'md:ml-72': activeMenu, '': !activeMenu }"
     >
       <NavBar />
-      <div>
+      <div
+        class="bg-white dark:bg-secondary-dark-bg overflow-auto dark:text-white min-h-screen"
+      >
         <ThemePopup v-if="themeOpen" />
         <router-view />
       </div>
-      <!-- footer -->
+      <Footer />
     </div>
   </div>
   <!-- <div>
