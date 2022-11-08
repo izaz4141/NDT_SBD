@@ -1,19 +1,27 @@
 <template>
-  <div
-    class="fixed md:static bg-slate-200 dark:bg-main-dark-bg navbar w-full zindex"
-  >
-    <div class="grid grid-cols-3 relative md:mx-6 top-0">
-      <div class="flex justify-start relative">
+  <div class="fixed md:static bg-slate-200 dark:bg-main-dark-bg w-full zindex">
+    <div class="relative md:mx-6 top-0 flex justify-between" ref="wrapperEl">
+      <div class="flex relative gap-5" v-if="!activeMenu">
         <!-- this is the sidebar toggle -->
         <button
           @click="handleSidebarToggle"
           :style="{ color: currentColor }"
-          class="relative text-xl rounded-full p-2 my-1 hover:bg-light-gray"
+          class="relative text-2xl rounded-full pl-2 my-auto hover:bg-light-gray"
         >
-          <Icon icon="ic:outline-menu" />
+          <Icon icon="material-symbols:keyboard-double-arrow-right-rounded" />
         </button>
+        <a
+          class="items-center gap-3 flex text-xl font-extrabold tracking-tight mr-3 dark:text-white text-slate-900"
+          href=""
+        >
+          <Icon icon="fa-solid:campground" />
+          <span>Campers</span>
+        </a>
       </div>
-      <div class="flex justify-center items-center">
+      <div
+        class="flex justify-center items-center"
+        :class="{ 'ml-12': activeMenu }"
+      >
         <!-- search bar -->
         <SearchBar searchClass="w-72 h-6 pl-8 pr-2" inputClass="text-lg" />
       </div>
@@ -52,9 +60,11 @@
           <Icon icon="material-symbols:keyboard-arrow-down-rounded" />
         </div>
         <!-- conditional chat,notif,profile dropdown rendering -->
-        <Chat v-if="chatOpen" />
-        <Notification v-if="notificationOpen" />
-        <ProfileDropdown v-if="profileOpen" />
+        <div ref="popupEl">
+          <Chat v-if="chatOpen" />
+          <Notification v-if="notificationOpen" />
+          <ProfileDropdown v-if="profileOpen" />
+        </div>
       </div>
     </div>
   </div>
@@ -63,6 +73,8 @@
 <script setup>
   import { Icon } from '@iconify/vue'
   import { ref, provide, inject } from 'vue'
+  import { useAutoAnimate } from '@formkit/auto-animate/vue'
+
   import avatar from '../assets/avatar_g1.jpg'
   import Chat from './Chat.vue'
   import Notification from './Notification.vue'
@@ -93,6 +105,8 @@
   const handleSidebarToggle = () => {
     activeMenu.value = !activeMenu.value
   }
+  const [wrapperEl] = useAutoAnimate()
+  const [popupEl] = useAutoAnimate()
 </script>
 
 <style scoped>

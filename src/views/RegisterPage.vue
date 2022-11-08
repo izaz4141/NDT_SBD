@@ -1,13 +1,10 @@
 <template>
-  <section class="justify-center items-center dark:text-white">
-    <h2 class="text-center text-2xl my-12 font-bold">
-      Register Your Own Account!
-    </h2>
+  <section class="justify-center items-center dark:text-white my-12">
     <form
-      class="text-center my-10 text-xl relative items-center pt-8 pl-8 pr-8 pb-2 centerer rounded-lg"
+      class="text-center my-10 text-xl relative items-center pt-8 pl-8 pr-8 pb-2 centerer rounded-lg bg-slate-200 dark:bg-main-dark-bg"
       @submit.prevent="handleSubmit"
-      :style="{ background: currentColor }"
     >
+      <h2 class="text-center text-2xl font-bold">SIGN UP</h2>
       <div class="form-row">
         <label htmlFor="name" class="form-label"> User Name </label>
         <div class="div-input">
@@ -47,6 +44,7 @@
       <button
         type="submit"
         class="py-3 px-6 my-8 bg-white dark:bg-main-dark-bg text-black dark:text-white"
+        :style="{ background: currentColor }"
       >
         Register
       </button>
@@ -107,9 +105,6 @@
     width: 75%;
   }
   .form-row {
-    display: grid;
-    grid-template-columns: 25% 75%;
-    justify-content: space-between;
     margin-top: 3vh;
     margin-bottom: 3vh;
   }
@@ -117,7 +112,10 @@
     display: flex;
     justify-content: flex-start;
     margin-right: 2vh;
-    font-weight: 600;
+    font-weight: 500;
+    padding-left: 0.3rem;
+    font-size: 0.875rem /* 14px */;
+    line-height: 1.25rem /* 20px */;
   }
   .form-input {
     width: 100%;
@@ -136,11 +134,11 @@
   .div-input {
     display: flex;
     width: 100%;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
     justify-content: flex-end;
     border-radius: 0.375rem;
     padding-left: 0.5rem;
-    margin-left: 3%;
-    margin-right: 3%;
     background-color: white;
   }
   .dark .div-input {
@@ -150,6 +148,6 @@
   .div-input:focus-within {
     outline-style: solid;
     outline-width: 2px;
-    outline-color: #2563eb;
+    outline-color: v-bind(currentColor);
   }
 </style>

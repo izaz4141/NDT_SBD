@@ -5,6 +5,8 @@
   import SideBar from './components/SideBar.vue'
   import { ref, provide, onMounted } from 'vue'
   import { useStorage, useDark, useStorageAsync } from '@vueuse/core'
+  import { useAutoAnimate } from '@formkit/auto-animate/vue'
+
   import ThemePopup from './components/ThemePopup.vue'
   import SetCon from './components/SetCon.vue'
   import NavBar from './components/NavBar.vue'
@@ -34,6 +36,8 @@
     }
   }
 
+  const [wrapperEl] = useAutoAnimate()
+
   onMounted(() => {
     user_provider()
   })
@@ -49,6 +53,7 @@
     >
       <NavBar />
       <div
+        ref="wrapperEl"
         class="bg-white dark:bg-secondary-dark-bg overflow-auto dark:text-white min-h-screen"
       >
         <ThemePopup v-if="themeOpen" />
