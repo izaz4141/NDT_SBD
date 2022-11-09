@@ -19,7 +19,7 @@
         </a>
       </div>
       <div
-        class="flex justify-center items-center"
+        class="flex justify-center items-center invisible w-0 md:visible md:w-auto"
         :class="{ 'ml-12': activeMenu }"
       >
         <!-- search bar -->
@@ -48,14 +48,11 @@
           @click="handleProfileClick"
         >
           <img :src="avatar" alt="user-profile" class="rounded-full w-8 h-8" />
-          <p>
+          <p class="flex">
             <span class="dark:text-gray-400 text-14">Halo, </span>
-            <span class="dark:text-gray-400 font-bold ml-1 text-14" v-if="user"
-              >{{ user.name }}!</span
-            >
-            <span class="dark:text-gray-400 font-bold ml-1 text-14" v-else
-              >Guest!</span
-            >
+            <span class="dark:text-gray-400 font-bold ml-1 text-14">
+              {{ user ? user.name : 'Guest' }}!
+            </span>
           </p>
           <Icon icon="material-symbols:keyboard-arrow-down-rounded" />
         </div>
@@ -111,6 +108,6 @@
 
 <style scoped>
   .zindex {
-    z-index: 1000;
+    z-index: 500;
   }
 </style>

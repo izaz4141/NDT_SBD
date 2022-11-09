@@ -37,6 +37,7 @@
   }
 
   const [wrapperEl] = useAutoAnimate()
+  const [contEl] = useAutoAnimate()
 
   onMounted(() => {
     user_provider()
@@ -44,8 +45,8 @@
 </script>
 
 <template>
-  <div class="flex relative dark:bg-main-dark-bg">
-    <SideBar />
+  <div class="flex relative dark:bg-main-dark-bg" ref="contEl">
+    <SideBar v-if="activeMenu" />
     <SetCon />
     <div
       class="dark:bg-main-bg bg-main-bg min-h-screen w-full"
@@ -53,11 +54,12 @@
     >
       <NavBar />
       <div
-        ref="wrapperEl"
         class="bg-white dark:bg-secondary-dark-bg overflow-auto dark:text-white min-h-screen"
       >
-        <ThemePopup v-if="themeOpen" />
-        <router-view />
+        <div class="mt-24 md:mt-0" ref="wrapperEl">
+          <ThemePopup v-if="themeOpen" />
+          <router-view />
+        </div>
       </div>
       <Footer />
     </div>

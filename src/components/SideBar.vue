@@ -1,37 +1,32 @@
 <template>
-  <aside class="zindex" ref="wrapperEl">
+  <div
+    class="w-72 fixed sidebar zindex dark:bg-secondary-dark-bg bg-slate-400 border-r-2 border-zinc-900 dark:border-zinc-200 text-black dark:text-white scroller"
+  >
     <div
-      v-if="activeMenu"
-      class="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-slate-400 border-r-2 border-zinc-900 dark:border-zinc-200 text-black dark:text-white scroller"
+      class="h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10"
     >
-      <div
-        class="h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10"
-      >
-        <div class="bg-slate-200 dark:bg-main-dark-bg">
-          <div class="flex justify-between items-center navHeight">
-            <a
-              class="items-center gap-3 ml-6 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900"
-              href=""
-            >
-              <Icon icon="fa-solid:campground" />
-              <span>Campers</span>
-            </a>
-            <button
-              class="text-2xl mr-3 block pr-2 my-auto hover:bg-light-gray rounded-full"
-              @click="closeMenu"
-              :style="{ color: currentColor }"
-            >
-              <Icon
-                icon="material-symbols:keyboard-double-arrow-left-rounded"
-              />
-            </button>
-          </div>
-          <div class="h-6"></div>
+      <div class="bg-slate-200 dark:bg-main-dark-bg">
+        <div class="flex justify-between items-center navHeight">
+          <a
+            class="items-center gap-3 ml-6 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900"
+            href=""
+          >
+            <Icon icon="fa-solid:campground" />
+            <span>Campers</span>
+          </a>
+          <button
+            class="text-2xl mr-3 block pr-2 my-auto hover:bg-light-gray rounded-full"
+            @click="closeMenu"
+            :style="{ color: currentColor }"
+          >
+            <Icon icon="material-symbols:keyboard-double-arrow-left-rounded" />
+          </button>
         </div>
-        <ChildBar :links="links" />
+        <div class="h-6"></div>
       </div>
+      <ChildBar :links="links" />
     </div>
-  </aside>
+  </div>
 </template>
 
 <script setup>
@@ -39,12 +34,10 @@
   import { links } from '../data/dummy'
   import { Icon } from '@iconify/vue'
   import { ref, inject, onMounted, watch } from 'vue'
-  import { useAutoAnimate } from '@formkit/auto-animate/vue'
 
   const activeMenu = inject('activeMenu', ref(true))
   const screenSize = inject('screenSize', ref(window.innerWidth))
   const currentColor = inject('currentColor', ref('#03C9D7'))
-  const [wrapperEl] = useAutoAnimate()
 
   const closeMenu = () => {
     activeMenu.value = !activeMenu.value
