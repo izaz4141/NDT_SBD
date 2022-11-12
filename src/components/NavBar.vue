@@ -44,17 +44,20 @@
         </button>
         <!-- profile -->
         <div
-          class="flex items-center gap-2 cursor-pointer my-1 px-1 hover:bg-light-gray rounded-lg"
+          class="flex items-center md:gap-2 cursor-pointer my-1 px-1 hover:bg-light-gray rounded-full md:rounded-lg"
           @click="handleProfileClick"
         >
           <img :src="avatar" alt="user-profile" class="rounded-full w-8 h-8" />
-          <p class="flex">
+          <p class="flex w-0 invisible md:w-auto md:visible">
             <span class="dark:text-gray-400 text-14">Halo, </span>
             <span class="dark:text-gray-400 font-bold ml-1 text-14">
               {{ user ? user.name : 'Guest' }}!
             </span>
           </p>
-          <Icon icon="material-symbols:keyboard-arrow-down-rounded" />
+          <Icon
+            icon="material-symbols:keyboard-arrow-down-rounded"
+            class="w-0 invisible md:w-auto md:visible"
+          />
         </div>
         <!-- conditional chat,notif,profile dropdown rendering -->
         <div ref="popupEl">

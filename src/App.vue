@@ -41,6 +41,9 @@
 
   onMounted(() => {
     user_provider()
+    if (screenSize.value <= 900) {
+      activeMenu.value = false
+    }
   })
 </script>
 
@@ -49,7 +52,7 @@
     <SideBar v-if="activeMenu" />
     <SetCon />
     <div
-      class="dark:bg-main-bg bg-main-bg min-h-screen w-full"
+      class="bg-main-bg min-h-screen w-full"
       :class="{ 'md:ml-72': activeMenu, '': !activeMenu }"
     >
       <NavBar />

@@ -1,37 +1,25 @@
 <template>
-  <section class="justify-center items-center dark:text-white mt-24">
+  <section class="justify-center items-center dark:text-white my-24">
     <form
-      class="text-center my-10 text-xl relative items-center pt-8 pl-8 pr-8 pb-2 centerer rounded-lg bg-slate-200 dark:bg-main-dark-bg"
+      class="text-center my-10 text-sm md:text-xl relative items-center pt-8 pl-8 pr-8 pb-2 centerer rounded-lg bg-slate-200 dark:bg-main-dark-bg"
       @submit.prevent="handleSubmit"
     >
       <h1 class="text-center text-2xl mb-12 font-bold">SIGN IN</h1>
       <div class="form-row">
         <label htmlFor="email" class="form-label"> Email </label>
         <div class="div-input">
-          <input
-            type="email"
-            class="form-input"
-            id=""
-            v-model="email"
-            placeholder="Email"
-          />
+          <input type="email" class="form-input" id="" v-model="email" />
         </div>
       </div>
       <div class="form-row">
         <label htmlFor="password" class="form-label"> Password </label>
         <div class="div-input">
-          <input
-            type="password"
-            class="form-input"
-            id=""
-            v-model="password"
-            placeholder="Password"
-          />
+          <input type="password" class="form-input" id="" v-model="password" />
         </div>
       </div>
       <button
         type="submit"
-        class="py-3 px-6 my-8 bg-white dark:bg-main-dark-bg text-black dark:text-white font-semibold"
+        class="py-3 px-6 my-8 text-black dark:text-white font-semibold w-full"
         :style="{ background: currentColor }"
       >
         Login

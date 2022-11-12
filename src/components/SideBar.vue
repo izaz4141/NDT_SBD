@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-72 fixed sidebar zindex dark:bg-secondary-dark-bg bg-slate-400 border-r-2 border-zinc-900 dark:border-zinc-200 text-black dark:text-white scroller"
+    class="w-72 fixed zindex dark:bg-secondary-dark-bg bg-slate-400 border-r-2 border-zinc-900 dark:border-zinc-200 text-black dark:text-white scroller"
   >
     <div
       class="h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10"
