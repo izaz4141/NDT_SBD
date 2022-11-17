@@ -12,6 +12,41 @@ export const links = [
         component: import('../views/HomePage.vue'),
       },
       {
+        name: 'pesan layanan',
+        url: '/pemesanan',
+        icon: 'mdi:cart-variant',
+        component: import('../views/ProductOrderPage.vue'),
+      },
+      {
+        name: 'daftar pesanan',
+        url: '/daftar_pesanan',
+        icon: 'carbon:task-view',
+        component: import('../views/DaftarKerja.vue'),
+      },
+      {
+        name: 'daftar alat',
+        url: '/daftar_alat',
+        icon: 'icon-park-solid:backpack',
+        component: import('../views/DaftarAlat.vue'),
+      },
+    ],
+  },
+  {
+    title: 'Tentang',
+    children: [
+      {
+        name: 'teknologi',
+        url: '/teknologi',
+        icon: 'game-icons:radiations',
+        component: import('../views/AboutTech.vue'),
+      },
+      {
+        name: 'karyawan',
+        url: '/karyawan',
+        icon: 'clarity:employee-group-solid',
+        component: import('../views/AboutKaryawanPage.vue'),
+      },
+      {
         name: 'about',
         url: '/about',
         icon: 'bi:question-circle',

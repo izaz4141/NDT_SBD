@@ -44,7 +44,7 @@
         </button>
         <!-- profile -->
         <div
-          class="flex items-center md:gap-2 cursor-pointer my-1 px-1 hover:bg-light-gray rounded-full md:rounded-lg"
+          class="flex items-center md:gap-2 cursor-pointer my-1 px-1 py-0 md:p-1 hover:bg-light-gray rounded-full md:rounded-lg"
           @click="handleProfileClick"
         >
           <img :src="avatar" alt="user-profile" class="rounded-full w-8 h-8" />

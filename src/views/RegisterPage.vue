@@ -121,6 +121,7 @@
     justify-content: flex-end;
     border-radius: 0.375rem;
     padding-left: 0.5rem;
+    padding-right: 0.5rem;
     background-color: white;
   }
   .dark .div-input {
