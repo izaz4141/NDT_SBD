@@ -18,10 +18,16 @@ export const links = [
         component: import('../views/ProductOrderPage.vue'),
       },
       {
+        name: 'daftar pekerjaan',
+        url: '/daftar_pekerjaan',
+        icon: 'carbon:task-view',
+        component: import('../views/DaftarKerja.vue'),
+      },
+      {
         name: 'daftar pesanan',
         url: '/daftar_pesanan',
         icon: 'carbon:task-view',
-        component: import('../views/DaftarKerja.vue'),
+        component: import('../views/DaftarPesanan.vue'),
       },
       {
         name: 'daftar alat',
@@ -67,7 +73,7 @@ export const links = [
         name: 'user-list',
         url: '/dev/user_list',
         icon: 'fa-solid:users-cog',
-        component: import('../views/UserList.vue'),
+        component: import('../views/DevUserList.vue'),
       },
     ],
   },

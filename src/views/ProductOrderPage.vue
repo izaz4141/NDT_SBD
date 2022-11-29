@@ -10,13 +10,25 @@
       <div class="form-row">
         <label html-for="name" class="form-label">Nama Lengkap</label>
         <div class="div-input">
-          <input type="text" class="form-input" id="" v-model="nama" />
+          <input
+            type="text"
+            class="form-input"
+            id=""
+            v-model="nama"
+            @keypress="(ext) => ext.preventDefault()"
+          />
         </div>
       </div>
       <div class="form-row">
         <label htmlFor="email" class="form-label"> Email </label>
         <div class="div-input">
-          <input type="email" class="form-input" id="" v-model="email" />
+          <input
+            type="email"
+            class="form-input"
+            id=""
+            v-model="email"
+            @keypress="(ext) => ext.preventDefault()"
+          />
         </div>
       </div>
       <div class="form-row">
@@ -27,7 +39,7 @@
             class="form-input"
             id=""
             v-model="no_telp"
-            @keypress="isNumber($event)"
+            @keypress="(ext) => ext.preventDefault()"
           />
         </div>
       </div>
@@ -57,11 +69,21 @@
         </div>
       </div>
       <button
+        v-if="user"
         type="submit"
         class="py-3 px-6 my-8 text-black dark:text-white font-semibold w-full"
         :style="{ background: currentColor }"
       >
         Pesan
+      </button>
+      <button
+        v-else
+        disabled
+        type="submit"
+        class="py-3 px-6 my-8 text-black dark:text-white font-semibold w-full cursor-not-allowed brightness-50"
+        :style="{ background: currentColor }"
+      >
+        Login Untuk Memesan!
       </button>
     </form>
   </div>
@@ -69,12 +91,14 @@
 
 <script setup>
   import { ref, inject } from 'vue'
+  import httpClient from '../api/api'
+
   const user = inject('user')
   const currentColor = inject('currentColor')
 
-  const nama = ref(user ? user.value.name : '')
-  const email = ref(user ? user.value.email : '')
-  const no_telp = ref(user ? user.value.no_telp : '')
+  const nama = user ? user.value.name : ''
+  const email = user ? user.value.email : ''
+  const no_telp = user ? user.value.no_hp : ''
 
   const lokasi = ref('')
   const layanan = ref('')
@@ -83,18 +107,20 @@
   const items = ['gamma', 'xray', 'positron']
 
   const handleSubmit = async () => {
-    try {
-      await httpClient.post('/order', {
-        name: nama.value,
-        email: email.value,
-        no_telp: no_telp.value,
-        lokasi: lokasi.value,
-        layanan: layanan.value,
-        deskripsi: deskripsi.value,
-      })
-      router.push('/')
-    } catch (error) {
-      console.log(error)
+    if (user) {
+      try {
+        await httpClient.post('/order', {
+          lokasi: lokasi.value,
+          layanan: layanan.value,
+          deskripsi: deskripsi.value,
+          user_id: user.value.id,
+        })
+        alert('Submit Successful')
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      alert('Anda harus login terlebih dahulu untuk memesan layanan.')
     }
   }
 

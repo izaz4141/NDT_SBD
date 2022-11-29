@@ -2,7 +2,7 @@
   <div
     class="flex flex-col justify-center my-12 text-center md:text-sm text-xs"
   >
-    <h1>Daftar Peralatan</h1>
+    <h1>Daftar User</h1>
     <SearchBar
       searchClass="w-[24rem] h-10 pl-8 pr-2 rounded-lg"
       v-model="searchFilter"
@@ -11,33 +11,7 @@
       class="m-auto my-4"
       :style="{ borderColor: currentColor }"
     />
-    <div class="flex justify-around items-center">
-      <div>
-        <label htmlFor="name" class="mr-4 font-bold">Nama</label>
-        <input
-          type="name"
-          class="px-4 py-1 bg-white dark:bg-gray-900 rounded-md border-1"
-          :style="{ borderColor: currentColor }"
-          v-model="name"
-        />
-      </div>
-      <div>
-        <label htmlFor="tipe" class="mr-4 font-bold">Tipe</label>
-        <input
-          type="text"
-          v-model="tipe"
-          class="px-4 py-1 bg-white dark:bg-gray-900 rounded-md border-1"
-          :style="{ borderColor: currentColor }"
-        />
-      </div>
-      <button
-        @click="handleAdd"
-        class="bg-gray-600 hover:bg-gray-500 text-white py-2 px-3"
-      >
-        Add
-      </button>
-    </div>
-    <TabelDaftarAlat />
+    <TabelDaftarUsers />
   </div>
 </template>
 
@@ -46,31 +20,18 @@
   import { useRouter } from 'vue-router'
   import httpClient from '../api/api'
   import SearchBar from '../components/SearchBar.vue'
-  import TabelDaftarAlat from '../components/TabelDaftarAlat.vue'
+  import TabelDaftarUsers from '../components/TabelDaftarUsers.vue'
 
   const router = useRouter()
   const data = ref([])
   const data_q = ref([])
-  const name = ref('')
-  const tipe = ref('')
   const searchFilter = ref('')
 
   const user = inject('user')
   const currentColor = inject('currentColor')
 
-  provide('data_alat', data_q)
+  provide('data_dev_users', data_q)
 
-  const handleAdd = async () => {
-    try {
-      await httpClient.post('/add_inventaris', {
-        name: name.value,
-        tipe: tipe.value,
-      })
-      await data_provider()
-    } catch (er) {
-      console.log(er)
-    }
-  }
   const filterByValue = (array, string) => {
     return array.filter((o) =>
       Object.keys(o).some(
@@ -88,7 +49,7 @@
   const data_provider = async () => {
     if (user.value) {
       try {
-        const resp = await httpClient.post('/inventaris_list', {
+        const resp = await httpClient.post('/dev_users_list', {
           author_level: user.value.author_level,
         })
         data.value = resp.data
