@@ -11,7 +11,7 @@ Pada Front End install dependency dengan
 npm install --legacy-peer-deps
 ```
 
-Pada folder server buat folder `.env` lalu isi dengan
+Pada folder server buat file `.env` lalu isi dengan
 
 ```
 USER_NAME= user name mysql
