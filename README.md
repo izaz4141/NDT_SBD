@@ -5,8 +5,18 @@ Projek ini dibuat menggunakan Vite Package Manager.
 
 ## Setup
 
+Pada Front End install dependency dengan
+
 ```
 npm install --legacy-peer-deps
+```
+
+Pada Server Flask Python env yang harus diisi adalah
+
+```
+USER_NAME= user name mysql
+USER_PASSWORD= password user mysql
+FLASK_SECRET= random secret
 ```
 
 ## Run Web Page

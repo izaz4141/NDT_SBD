@@ -23,6 +23,18 @@
           <input type="password" class="form-input" id="" v-model="password" />
         </div>
       </div>
+      <div class="form-row">
+        <label htmlFor="text" class="form-label"> No Handphone </label>
+        <div class="div-input">
+          <input
+            type="text"
+            class="form-input"
+            id=""
+            v-model="no_telp"
+            @keypress="isNumber($event)"
+          />
+        </div>
+      </div>
       <button
         type="submit"
         class="py-3 px-6 my-8 bg-white dark:bg-main-dark-bg text-black dark:text-white w-full"
@@ -49,6 +61,7 @@
   const name = ref('')
   const email = ref('')
   const password = ref('')
+  const no_telp = ref('')
 
   const user_provider = async () => {
     try {
@@ -64,6 +77,7 @@
         name: name.value,
         email: email.value,
         password: password.value,
+        no_telp: no_telp.value,
       })
       user_provider()
       router.push('/')
@@ -75,6 +89,14 @@
       } catch (er) {
         console.log(er)
       }
+    }
+  }
+  function isNumber(evt) {
+    const keysAllowed = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+']
+    const keyPressed = evt.key
+
+    if (!keysAllowed.includes(keyPressed)) {
+      evt.preventDefault()
     }
   }
 </script>

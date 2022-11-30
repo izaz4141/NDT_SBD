@@ -23,7 +23,7 @@
           class="text-gray-500 text-sm dark:text-gray-400"
           :style="{ color: currentColor }"
         >
-          {{ user ? user.author_level : 2 }}
+          {{ user ? user.author_level : 3 }}
         </p>
         <p class="text-gray-500 text-sm font-semibold dark:text-gray-400">
           Campers.co
@@ -87,17 +87,36 @@
   import avatar from '../assets/avatar_g1.jpg'
   import { userProfileData } from '../data/dummy'
   import { useRouter } from 'vue-router'
+  import httpClient from '../api/api'
 
   const user = inject('user')
   const currentColor = inject('currentColor', ref('#03C9D7'))
   const profileOpen = inject('profileOpen', ref(false))
 
   const router = useRouter()
+
+  const user_provider = async () => {
+    try {
+      const resp = await httpClient.get('/@me')
+      user.value = resp.data
+    } catch (error) {
+      user.value = false
+      console.log('Not Authorized')
+    }
+  }
+
   const handleProfileClose = () => {
     profileOpen.value = false
   }
-  const handleLogout = () => {
-    console.log('Logout')
+  const handleLogout = async () => {
+    try {
+      await httpClient.post('/logout', {
+        user_id: user.value.id,
+      })
+      user_provider()
+    } catch (er) {
+      console.log(er)
+    }
   }
   const handleLogin = () => {
     router.push('/login')

@@ -3,10 +3,11 @@
   // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
   // import HelloWorld from './components/HelloWorld.vue'
   import SideBar from './components/SideBar.vue'
-  import { ref, provide, onMounted } from 'vue'
+  import { ref, provide, onBeforeMount } from 'vue'
   import { useStorage, useDark, useStorageAsync } from '@vueuse/core'
   import { useAutoAnimate } from '@formkit/auto-animate/vue'
 
+  import httpClient from './api/api'
   import ThemePopup from './components/ThemePopup.vue'
   import SetCon from './components/SetCon.vue'
   import NavBar from './components/NavBar.vue'
@@ -17,7 +18,7 @@
   const activeMenu = ref(true)
   const themeOpen = ref(false)
   const screenSize = ref(window.innerWidth)
-  const currentColor = ref(useStorage('colodMode', '#03C9D7', localStorage))
+  const currentColor = ref(useStorage('colorMode', '#03C9D7', localStorage))
   const currentDark = ref(useStorage('themeMode', useDark(), localStorage))
 
   provide('user', user)
@@ -31,7 +32,9 @@
     try {
       const resp = await httpClient.get('/@me')
       user.value = resp.data
+      console.log(resp.data)
     } catch (error) {
+      user.value = false
       console.log('Not Authorized')
     }
   }
@@ -39,8 +42,8 @@
   const [wrapperEl] = useAutoAnimate()
   const [contEl] = useAutoAnimate()
 
-  onMounted(() => {
-    user_provider()
+  onBeforeMount(async () => {
+    await user_provider()
     if (screenSize.value <= 900) {
       activeMenu.value = false
     }
