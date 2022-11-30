@@ -81,7 +81,14 @@
           <!-- Peminjaman -->
           <td class="w-[15vw] justify-center flex items-center overflow-auto">
             <div>
-              {{ item.meminjam.map((pinjam) => pinjam.item).join(', ') }}
+              {{
+                item.meminjam
+                  .filter((pinjam) =>
+                    pinjam.item.name == 'Barang Telah Dihapus' ? false : true,
+                  )
+                  .map((p) => p.item.name)
+                  .join(', ')
+              }}
             </div>
           </td>
           <!-- Pekerjaan -->
@@ -95,6 +102,9 @@
                   {{ kerja.lokasi }}
                 </option>
               </select>
+            </div>
+            <div v-else>
+              {{ item.pekerjaan.map((p) => p.lokasi).join(', ') }}
             </div>
           </td>
           <!-- Tanggal Daftar -->

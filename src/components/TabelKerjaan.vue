@@ -11,6 +11,7 @@
           <th class="w-[20vw]" scope="col">Petugas</th>
           <th class="w-[10vw]" scope="col">Deskripsi</th>
           <th class="w-[15vw]" scope="col">Tanggal Pemesanan</th>
+          <th class="w-[15vw]" scope="col">Estimasi Pengerjaan</th>
           <th class="w-[15vw]" scope="col">Tanggal Penyelesaian</th>
           <th class="w-[20vw]" scope="col">Actions</th>
         </tr>
@@ -60,17 +61,7 @@
           </td>
           <!-- Petugas -->
           <td class="w-[20vw] overflow-auto">
-            <div v-if="editOpen[item.id]">
-              <select
-                class="px-4 py-1 bg-white dark:bg-gray-900 rounded-md border-1"
-                v-model="editPetugas"
-              >
-                <option v-for="petugas in karyawan" :value="petugas.id">
-                  {{ petugas.name }}
-                </option>
-              </select>
-            </div>
-            <div v-else>
+            <div>
               {{ item.karyawan.map((k) => k.name).join(', ') }}
             </div>
           </td>
@@ -86,6 +77,20 @@
           <!-- Tanggal Pemensanan -->
           <td class="w-[15vw] overflow-auto">
             {{ item.tanggal_pemesanan }}
+          </td>
+          <!-- Estimasi Pengerjaan -->
+          <td class="w-[15vw] overflow-auto">
+            <div v-if="editOpen[item.id]">
+              <input
+                type="text"
+                v-model="editEP"
+                class="px-4 py-1 bg-white dark:bg-gray-900 rounded-md border-1"
+                :style="{ borderColor: currentColor }"
+              />
+            </div>
+            <div v-else>
+              {{ item.estimasi_pengerjaan }}
+            </div>
           </td>
           <!-- Tanggal Penyelesaian -->
           <td class="w-[15vw] overflow-auto">
@@ -107,12 +112,19 @@
               >
                 Edit
               </button>
-
               <button
-                @click="handleDelete(item.id)"
-                class="bg-red-500 hover:bg-red-400 text-white font-bold py-1 px-4 rounded-t"
+                v-if="item.tanggal_selesai"
+                class="bg-green-500 hover:bg-green-400 text-white font-bold py-1 px-4 rounded-t cursor-not-allowed brightness-50"
+                disabled
               >
-                Delete
+                Selesai
+              </button>
+              <button
+                v-else
+                @click="handleFinisher(item.id)"
+                class="bg-green-500 hover:bg-green-400 text-white font-bold py-1 px-4 rounded-t"
+              >
+                Selesaikan
               </button>
               <button
                 v-if="editOpen[item.id]"
@@ -142,11 +154,11 @@
 
   const currentColor = inject('currentColor')
   const user = inject('user')
-  const data = inject('data_pesanan')
+  const data = inject('data_myOrder')
 
   const editOpen = ref({})
   const editPrice = ref('')
-  const editPetugas = ref('')
+  const editEP = ref('')
 
   const karyawan = ref([])
 
@@ -167,17 +179,17 @@
     editOpen.value = {}
     editOpen.value[item.id] = true
     editPrice.value = item.harga
-    editPetugas.value = item.karyawan.id
+    editEP.value = item.estimasi_pengerjaan
   }
   const handleEditClose = () => {
     editOpen.value = {}
   }
   const handleSave = async (id) => {
     try {
-      await httpClient.post('/edit_pesanan', {
+      await httpClient.post('/edit_my_kerja', {
         pesanan_id: id,
         harga: editPrice.value,
-        karyawan_id: editPetugas.value,
+        estimasi_pengerjaan: editEP.value,
       })
       await data_provider()
       editOpen.value = {}
@@ -186,10 +198,10 @@
     }
   }
 
-  const handleDelete = async (id) => {
+  const handleFinisher = async (id) => {
     try {
-      await httpClient.post('/cancel_order', {
-        order_id: id,
+      await httpClient.post('/selesai_kerja', {
+        pesanan_id: id,
       })
       await data_provider()
     } catch (er) {
@@ -203,7 +215,8 @@
   const data_provider = async () => {
     if (user.value) {
       try {
-        const resp = await httpClient.post('/pemesanan_list', {
+        const resp = await httpClient.post('/get_kerjaan', {
+          user_id: user.value.id,
           author_level: user.value.author_level,
         })
         data.value = resp.data

@@ -32,22 +32,27 @@
     </div>
     <div>
       <div
-        class="flex gap-5 border-b-1 border-color p-4 hover:bg-light-gray cursor-pointer dark:hover:bg-[#42464D]"
         v-for="(item, index) in userProfileData"
         :key="index"
+        @click="() => router.push(item.link)"
       >
-        <button
-          type="button"
-          :style="{ color: item.iconColor, background: item.iconBg }"
-          class="text-xl rounded-lg p-3 hover:bg-light-gray"
+        <div
+          v-if="conditionalRow(item.title)"
+          class="flex gap-5 border-b-1 border-color p-4 hover:bg-light-gray cursor-pointer dark:hover:bg-[#42464D]"
         >
-          <Icon :icon="item.icon" />
-        </button>
-        <div>
-          <p class="font-semibold dark:text-gray-200">{{ item.title }}</p>
-          <p class="text-gray-500 text-sm dark:text-gray-400">
-            {{ item.desc }}
-          </p>
+          <button
+            type="button"
+            :style="{ color: item.iconColor, background: item.iconBg }"
+            class="text-xl rounded-lg p-3 hover:bg-light-gray"
+          >
+            <Icon :icon="item.icon" />
+          </button>
+          <div>
+            <p class="font-semibold dark:text-gray-200">{{ item.title }}</p>
+            <p class="text-gray-500 text-sm dark:text-gray-400">
+              {{ item.desc }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -102,6 +107,19 @@
     } catch (error) {
       user.value = false
       console.log('Not Authorized')
+    }
+  }
+  const conditionalRow = (title) => {
+    if (title == 'My Tasks') {
+      if (user.value) {
+        if (user.value.author_level <= 1) {
+          return true
+        }
+      } else {
+        return false
+      }
+    } else {
+      return true
     }
   }
 

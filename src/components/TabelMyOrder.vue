@@ -7,10 +7,10 @@
           <th class="w-[20vw]" scope="col">Lokasi</th>
           <th class="w-[10vw]" scope="col">Layanan</th>
           <th class="w-[10vw]" scope="col">Harga</th>
-          <th class="w-[10vw]" scope="col">Pemesan</th>
           <th class="w-[20vw]" scope="col">Petugas</th>
           <th class="w-[10vw]" scope="col">Deskripsi</th>
           <th class="w-[15vw]" scope="col">Tanggal Pemesanan</th>
+          <th class="w-[15vw]" scope="col">Estimasi Pengerjaan</th>
           <th class="w-[15vw]" scope="col">Tanggal Penyelesaian</th>
           <th class="w-[20vw]" scope="col">Actions</th>
         </tr>
@@ -42,35 +42,13 @@
           </td>
           <!-- Harga -->
           <td class="w-[10vw] overflow-auto">
-            <div v-if="editOpen[item.id]">
-              <input
-                type="text"
-                v-model="editPrice"
-                class="px-4 py-1 bg-white dark:bg-gray-900 rounded-md border-1"
-                :style="{ borderColor: currentColor }"
-              />
-            </div>
-            <div v-else>
+            <div>
               {{ item.harga }}
             </div>
           </td>
-          <!-- Pemesan -->
-          <td class="w-[10vw] overflow-auto">
-            {{ item.pelanggan.name }}
-          </td>
           <!-- Petugas -->
           <td class="w-[20vw] overflow-auto">
-            <div v-if="editOpen[item.id]">
-              <select
-                class="px-4 py-1 bg-white dark:bg-gray-900 rounded-md border-1"
-                v-model="editPetugas"
-              >
-                <option v-for="petugas in karyawan" :value="petugas.id">
-                  {{ petugas.name }}
-                </option>
-              </select>
-            </div>
-            <div v-else>
+            <div>
               {{ item.karyawan.map((k) => k.name).join(', ') }}
             </div>
           </td>
@@ -87,6 +65,10 @@
           <td class="w-[15vw] overflow-auto">
             {{ item.tanggal_pemesanan }}
           </td>
+          <!-- Estimasi Pengerjaan -->
+          <td class="w-[15vw] overflow-auto">
+            {{ item.estimasi_pengerjaan }}
+          </td>
           <!-- Tanggal Penyelesaian -->
           <td class="w-[15vw] overflow-auto">
             {{ item.tanggal_selesai }}
@@ -94,32 +76,10 @@
           <td class="w-[20vw]">
             <div class="flex gap-2 justify-center items-center">
               <button
-                v-if="editOpen[item.id]"
-                @click="handleSave(item.id)"
-                class="bg-green-500 hover:bg-green-400 text-white font-bold py-1 px-4 rounded-t"
-              >
-                Save
-              </button>
-              <button
-                v-else
-                @click="handleEdit(item)"
-                class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-1 px-4 rounded-t"
-              >
-                Edit
-              </button>
-
-              <button
                 @click="handleDelete(item.id)"
                 class="bg-red-500 hover:bg-red-400 text-white font-bold py-1 px-4 rounded-t"
               >
-                Delete
-              </button>
-              <button
-                v-if="editOpen[item.id]"
-                @click="handleEditClose"
-                class="text-3xl rounded-full h-min w-min relative right-2"
-              >
-                <Icon icon="ic:twotone-cancel" />
+                Cancel Order
               </button>
             </div>
           </td>
@@ -137,19 +97,12 @@
 <script setup>
   import { inject, onMounted, ref, provide } from 'vue'
   import httpClient from '../api/api'
-  import { Icon } from '@iconify/vue'
   import TextPopup from './TextPopup.vue'
 
-  const currentColor = inject('currentColor')
   const user = inject('user')
-  const data = inject('data_pesanan')
-
-  const editOpen = ref({})
-  const editPrice = ref('')
-  const editPetugas = ref('')
+  const data = inject('data_myOrder')
 
   const karyawan = ref([])
-
   const descOpen = ref({})
 
   provide('popupOpen', descOpen)
@@ -158,29 +111,6 @@
     try {
       const resp = await httpClient.get('/get_karyawan')
       karyawan.value = resp.data
-    } catch (er) {
-      console.log(er)
-    }
-  }
-
-  const handleEdit = (item) => {
-    editOpen.value = {}
-    editOpen.value[item.id] = true
-    editPrice.value = item.harga
-    editPetugas.value = item.karyawan.id
-  }
-  const handleEditClose = () => {
-    editOpen.value = {}
-  }
-  const handleSave = async (id) => {
-    try {
-      await httpClient.post('/edit_pesanan', {
-        pesanan_id: id,
-        harga: editPrice.value,
-        karyawan_id: editPetugas.value,
-      })
-      await data_provider()
-      editOpen.value = {}
     } catch (er) {
       console.log(er)
     }
@@ -203,8 +133,8 @@
   const data_provider = async () => {
     if (user.value) {
       try {
-        const resp = await httpClient.post('/pemesanan_list', {
-          author_level: user.value.author_level,
+        const resp = await httpClient.post('/your_order_list', {
+          user_id: user.value.id,
         })
         data.value = resp.data
       } catch (er) {

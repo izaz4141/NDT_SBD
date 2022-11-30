@@ -2,7 +2,7 @@
   <div
     class="flex flex-col justify-center my-12 text-center md:text-sm text-xs"
   >
-    <h1>Kerjaan</h1>
+    <h1>Transaksi</h1>
     <SearchBar
       searchClass="w-[24rem] h-10 pl-8 pr-2 rounded-lg"
       v-model="searchFilter"
@@ -11,7 +11,7 @@
       class="m-auto my-4"
       :style="{ borderColor: currentColor }"
     />
-    <TabelKerjaan />
+    <TabelMyOrder />
   </div>
 </template>
 
@@ -20,7 +20,7 @@
   import { useRouter } from 'vue-router'
   import httpClient from '../api/api'
   import SearchBar from '../components/SearchBar.vue'
-  import TabelKerjaan from '../components/TabelKerjaan.vue'
+  import TabelMyOrder from '../components/TabelMyOrder.vue'
 
   const router = useRouter()
   const data = ref([])
@@ -49,9 +49,8 @@
   const data_provider = async () => {
     if (user.value) {
       try {
-        const resp = await httpClient.post('/get_kerjaan', {
+        const resp = await httpClient.post('/your_order_list', {
           user_id: user.value.id,
-          author_level: user.value.author_level,
         })
         data.value = resp.data
       } catch (er) {

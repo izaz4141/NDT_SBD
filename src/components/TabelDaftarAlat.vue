@@ -55,18 +55,21 @@
           </td>
           <td class="w-[10%] justify-center flex items-center overflow-auto">
             <button
-              v-if="item.peminjaman.id"
-              disabled
-              class="bg-violet-500 hover:bg-violet-400 text-white font-bold py-1 px-2 rounded-t brightness-50 cursor-not-allowed"
-            >
-              Dipinjam
-            </button>
-            <button
-              v-else
+              v-if="
+                item.peminjaman.tanggal_pengembalian ||
+                item.peminjaman.id === null
+              "
               @click="handlePinjam(item.id)"
               class="bg-violet-500 hover:bg-violet-400 text-white font-bold py-1 px-2 rounded-t"
             >
               Pinjam
+            </button>
+            <button
+              v-else
+              disabled
+              class="bg-violet-500 hover:bg-violet-400 text-white font-bold py-1 px-2 rounded-t brightness-50 cursor-not-allowed"
+            >
+              Dipinjam
             </button>
           </td>
           <td class="w-[20%]">

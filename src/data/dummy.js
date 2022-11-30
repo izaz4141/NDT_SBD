@@ -18,6 +18,17 @@ export const links = [
         component: import('../views/ProductOrderPage.vue'),
       },
       {
+        name: 'pesanan saya',
+        url: '/my_order',
+        icon: 'icon-park-outline:transaction-order',
+        component: import('../views/MyOrder.vue'),
+      },
+    ],
+  },
+  {
+    title: 'Employee',
+    children: [
+      {
         name: 'daftar pekerjaan',
         url: '/daftar_pekerjaan',
         icon: 'carbon:task-view',
@@ -34,6 +45,12 @@ export const links = [
         url: '/daftar_alat',
         icon: 'icon-park-solid:backpack',
         component: import('../views/DaftarAlat.vue'),
+      },
+      {
+        name: 'daftar peminjaman',
+        url: '/daftar_peminjaman',
+        icon: 'ic:round-book',
+        component: import('../views/PeminjamanList.vue'),
       },
     ],
   },
@@ -100,6 +117,7 @@ export const userProfileData = [
     desc: 'Account Settings',
     iconColor: '#03C9D7',
     iconBg: '#E5FAFB',
+    link: '/profile',
   },
   {
     icon: 'tabler:shield-half-filled',
@@ -107,13 +125,23 @@ export const userProfileData = [
     desc: 'Messages & Emails',
     iconColor: 'rgb(0, 194, 146)',
     iconBg: 'rgb(235, 250, 242)',
+    link: '/inbox',
   },
   {
-    icon: 'jam:credit-card-f',
+    icon: 'carbon:task-view',
     title: 'My Tasks',
     desc: 'To-do and Daily Tasks',
     iconColor: 'rgb(255, 244, 229)',
+    iconBg: 'rgb(127,255,0)',
+    link: '/daftar_pekerjaan',
+  },
+  {
+    icon: 'jam:credit-card-f',
+    title: 'My Order',
+    desc: 'Transaction Progress',
+    iconColor: 'rgb(255, 244, 229)',
     iconBg: 'rgb(254, 201, 15)',
+    link: '/my_order',
   },
 ]
 

@@ -32,6 +32,7 @@
 
   const childVisible = ref(false)
   const currentColor = inject('currentColor')
+
   const [wrapperEl] = useAutoAnimate()
   const HandleClick = () => {
     childVisible.value = !childVisible.value

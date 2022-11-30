@@ -11,7 +11,12 @@
             class="items-center gap-3 ml-6 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900"
             href=""
           >
-            <Icon icon="fa-solid:campground" />
+            <!-- <Icon icon="fa-solid:campground" /> -->
+            <img
+              :src="logo_sbd"
+              alt="logo-website"
+              class="rounded-full w-8 h-8"
+            />
             <span>Campers</span>
           </a>
           <button
@@ -31,6 +36,7 @@
 
 <script setup>
   import ChildBar from './ChildBar.vue'
+  import logo_sbd from '../assets/logo_sbd.png'
   import { links } from '../data/dummy'
   import { Icon } from '@iconify/vue'
   import { ref, inject, onMounted, watch } from 'vue'

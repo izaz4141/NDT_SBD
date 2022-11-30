@@ -37,7 +37,7 @@ def user_json(user):
         'author_level': user.author_level,
         'no_hp': user.no_hp,
         'departemen': user.departemen_id,
-        'meminjam': [{'id': pinjam.id, 'item_id': pinjam.item.id, 'item': pinjam.item.name}\
+        'meminjam': [peminjaman_json(pinjam)\
              for pinjam in user.meminjam] if not user.meminjam is None else {'id': user.meminjam.id},
         'pekerjaan': [pemesanan_json(kerja) for kerja in user.pekerjaan],
         'pesanan': [{'id': pesan.id, 'lokasi': pesan.lokasi, 'layanan': pesan.layanan, 'deskripsi': pesan.deskripsi,\
@@ -63,8 +63,8 @@ def inventaris_json(item):
         'id': item.id,
         'name': item.name,
         'tipe': item.tipe,
-        'peminjaman': {'id': item.peminjaman.id, 'peminjam': user_simple(item.peminjaman.peminjam)}\
-             if not item.peminjaman is None else {'id': item.peminjaman_id}
+        'peminjaman': {'id': item.peminjaman.id, 'peminjam': user_simple(item.peminjaman.peminjam), 'tanggal_pengembalian': item.peminjaman.tanggal_pengembalian}\
+             if not item.peminjaman is None else {'id': item.peminjaman_id, 'tanggal_pengembalian': None}
     }
 
 class Peminjaman(db.Model):
@@ -76,7 +76,8 @@ class Peminjaman(db.Model):
 def peminjaman_json(peminjaman):
     return {
         'id': peminjaman.id,
-        'item': {'id': peminjaman.item.id, 'name': peminjaman.item.name, 'tipe': peminjaman.item.name},
+        'item': {'id': peminjaman.item.id, 'name': peminjaman.item.name, 'tipe': peminjaman.item.name}\
+             if not peminjaman.item is None else {'id': 'Barang Telah Dihapus', 'name': 'Barang Telah Dihapus'},
         'peminjam': user_simple(peminjaman.peminjam),
         'tanggal_pengambilan': peminjaman.tanggal_pengambilan,
         'tanggal_pengembalian': peminjaman.tanggal_pengembalian

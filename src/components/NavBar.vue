@@ -14,7 +14,12 @@
           class="items-center gap-3 flex text-xl font-extrabold tracking-tight mr-3 dark:text-white text-slate-900"
           href=""
         >
-          <Icon icon="fa-solid:campground" />
+          <!-- <Icon icon="fa-solid:campground" /> -->
+          <img
+            :src="logo_sbd"
+            alt="logo-website"
+            class="rounded-full w-8 h-8"
+          />
           <span>Campers</span>
         </a>
       </div>
@@ -76,6 +81,7 @@
   import { useAutoAnimate } from '@formkit/auto-animate/vue'
 
   import avatar from '../assets/avatar_g1.jpg'
+  import logo_sbd from '../assets/logo_sbd.png'
   import Chat from './Chat.vue'
   import Notification from './Notification.vue'
   import ProfileDropdown from './ProfileDropdown.vue'

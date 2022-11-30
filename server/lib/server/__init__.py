@@ -145,20 +145,14 @@ def edit_user_dev():
     pekerjaan_id = request.json['pekerjaan_id']
     if dev_author_level == 0:
         with app.app_context():
-            user = db.User.query.filter_by(id=user_id)
+            user = db.User.query.filter_by(id=user_id).first()
             if departemen_id != 'bukan':
-                departemen = db.Departemen.query.filter_by(id=departemen_id)
-                user.update({
-                    db.User.departemen: departemen
-                })
+                departemen = db.Departemen.query.filter_by(id=departemen_id).first()
+                user.departemen = departemen
             if pekerjaan_id != 'bukan':
-                pekerjaan = db.Pemesanan.query.filter_by(id=pekerjaan_id)
-                user.update({
-                    db.User.pekerjaan: [pekerjaan]
-                })
-            user.update({
-                db.User.author_level: author_level
-            })
+                pekerjaan = db.Pemesanan.query.filter_by(id=pekerjaan_id).first()
+                user.pekerjaan.append(pekerjaan)
+            user.author_level = author_level
             db.db.session.commit()
         return '200'
     else:
@@ -190,12 +184,12 @@ def cancel_order():
         db.db.session.commit()
     return '200'
 @cross_origin(supports_credentials=True)
-@app.route('/your_order_list')
+@app.route('/your_order_list', methods=['POST'])
 def your_order_list():
-    u_id = request.json['u_id']
+    user_id = request.json['user_id']
     with app.app_context():
-        user = db.User.query.filter_by(id=u_id)
-    order = jsonify([*map(db.pemesanan_json, user.pesanan)])
+        user = db.User.query.filter_by(id=user_id).first()
+        order = jsonify([*map(db.pemesanan_json, user.pesanan)])
     return order, 200
 @cross_origin(supports_credentials=True)
 @app.route('/pemesanan_list', methods=['POST'])
@@ -214,11 +208,45 @@ def edit_pesanan():
     karyawan_id = request.json['karyawan_id']
     with app.app_context():
         pesanan = db.Pemesanan.query.filter_by(id=pesanan_id).first()
-        karyawan = db.User.query_filter_by(id=karyawan_id).first()
-        pesanan.update({
-            db.Pemesanan.harga: harga,
-            db.Pemesanan.karyawan: [karyawan]
-        })
+        karyawan = db.User.query.filter_by(id=karyawan_id).first()
+        pesanan.karyawan.append(karyawan)
+        pesanan.harga = harga
+        # pesanan.update({
+        #     db.Pemesanan.harga: harga
+        # })
+        db.db.session.commit()
+    return '200'
+@cross_origin(supports_credentials=True)
+@app.route('/get_kerjaan', methods=['POST'])
+def get_kerjaan():
+    user_id = request.json['user_id']
+    author_level = request.json['author_level']
+    if author_level <= 1:
+        with app.app_context():
+            user = db.User.query.filter_by(id=user_id).first()
+            list_kerjaan = jsonify([*map(db.pemesanan_json, user.pekerjaan)])
+        return list_kerjaan
+    else:
+        jsonify({'error': 'Not Authorized'}), 401
+@cross_origin(supports_credentials=True)
+@app.route('/selesai_kerja', methods=['POST'])
+def selesai_kerja():
+    pesanan_id = request.json['pesanan_id']
+    with app.app_context():
+        pesanan = db.Pemesanan.query.filter_by(id=pesanan_id).first()
+        pesanan.tanggal_selesai = datetime.utcnow()
+        db.db.session.commit()
+    return '200'
+@cross_origin(supports_credentials=True)
+@app.route('/edit_my_kerja', methods=['POST'])
+def edit_my_kerja():
+    harga = request.json['harga']
+    pesanan_id = request.json['pesanan_id']
+    estimasi_pengerjaan = request.json['estimasi_pengerjaan']
+    with app.app_context():
+        pesanan = db.Pemesanan.query.filter_by(id=pesanan_id).first()
+        pesanan.estimasi_pengerjaan = estimasi_pengerjaan
+        pesanan.harga = harga
         db.db.session.commit()
     return '200'
 
@@ -280,10 +308,11 @@ def meminjam():
 @cross_origin(supports_credentials=True)
 @app.route('/pengembalian', methods=['POST'])
 def pengembalian():
-    peminjaman_id = request.json['pengembalian_id']
+    peminjaman_id = request.json['peminjaman_id']
+    item_id = request.json['item_id']
     with app.app_context():
-        peminjaman = db.Peminjaman.query.filter_by(id=peminjaman_id).first()
-        item = db.Inventaris.query.filter_by(id=peminjaman.item.id).first()
+        peminjaman = db.Peminjaman.query.filter_by(id=peminjaman_id)
+        item = db.Inventaris.query.filter_by(id=item_id)
         peminjaman.update({
             db.Peminjaman.tanggal_pengembalian: datetime.utcnow()    
         })
@@ -292,7 +321,14 @@ def pengembalian():
         })
         db.db.session.commit()
     return '200'
-
+@cross_origin(supports_credentials=True)
+@app.route('/peminjaman_list', methods=['POST'])
+def peminjaman_list():
+    author_level = request.json['author_level']
+    if author_level <= 1:
+        return jsonify([*map(db.peminjaman_json, db.Peminjaman.query.all())])
+    else:
+        return jsonify({'error': 'Not Authorized'}), 401
 # Departemen
 @cross_origin(supports_credentials=True)
 @app.route('/add_departemen', methods=['POST'])
