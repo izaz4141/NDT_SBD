@@ -11,7 +11,7 @@ Pada Front End install dependency dengan
 npm install --legacy-peer-deps
 ```
 
-Pada Server Flask Python env yang harus diisi adalah
+Pada folder server buat folder `.env` lalu isi dengan
 
 ```
 USER_NAME= user name mysql
@@ -19,10 +19,24 @@ USER_PASSWORD= password user mysql
 FLASK_SECRET= random secret
 ```
 
+Kemudian install Redis, dan package python di folder server dengan,
+
+```
+pip install -r requirements.txt
+```
+
 ## Run Web Page
 
 ```
 npm run dev
+```
+
+## Run Backend
+
+Pada folder server jalankan
+
+```
+py launcher.py
 ```
 
 ## Push
