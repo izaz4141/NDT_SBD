@@ -1,4 +1,0 @@
-Kode dari setiap ID menunjukkan tabel
-1xxx = Departemen
-2xxx = Karyawan
-3xxx = Inventaris

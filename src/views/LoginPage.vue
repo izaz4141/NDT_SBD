@@ -48,7 +48,6 @@
       const resp = await httpClient.get('/@me')
       user.value = resp.data
     } catch (error) {
-      alert("Invalid Credentials")
       console.log('Not Authorized')
     }
   }
