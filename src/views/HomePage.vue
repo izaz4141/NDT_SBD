@@ -11,7 +11,7 @@
     </p>
     <br />
     <h2 class="text-2xl">Fitur</h2>
-    <ol>
+    <ol class="list-disc list-inside">
       <li>Penjadwalan dan perencanaan matang</li>
       <li>Pelayanan terbaik untuk semua pelanggan</li>
       <li>Mengutamakan keselamatan radioaktif dan keselamatan kerja</li>

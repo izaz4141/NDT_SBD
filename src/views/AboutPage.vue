@@ -2,7 +2,7 @@
   <div class="mx-4 my-2">
     <h1 class="text-3xl text-center font-bold">Tentang Perusahaan</h1>
     <br />
-
+    <img class="inline align-middle"   src="../assets/logo_sbd.png" width="200px" height="200px">
     <h2 class="text-2xl">Profil Perusahaan</h2>
     <p>
       Perusahaan ini bergerak dalam bidang jasa Uji Tak Rusak/Non-Destructive
