@@ -78,7 +78,7 @@
               </select>
             </div>
             <div v-else>
-              {{item.departemen ? (item.departemen.name) : ('')}}
+              {{ item.departemen ? item.departemen.name : '' }}
             </div>
           </td>
           <!-- Peminjaman -->
