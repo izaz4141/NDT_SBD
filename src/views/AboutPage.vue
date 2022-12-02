@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mx-4 my-2">
     <h1 class="text-3xl text-center font-bold">Tentang Perusahaan</h1>
     <br />
 
@@ -20,14 +20,14 @@
     </p>
     <br />
     <h3 class="text-xl">Misi</h3>
-    <ul>
+    <ul class="list-decimal list-inside">
       <li>Menggunakan peralatan NDT berteknologi nuklir dengan mutu tinggi</li>
       <li>Memperluas penerapan dan lapangan kerja dan teknik NDT</li>
       <li>Menyediakan layanan NDT dengan harga yang bersaing</li>
     </ul>
     <br />
     <h3 class="text-xl">Tujuan</h3>
-    <ol>
+    <ol class="list-decimal list-inside">
       <li>
         Menghasilkan analisis, hasil, dan kinerja NDT yang baik agar pelanggan
         puas dan lebih memilih teknik ini daripada teknik lainnya
@@ -54,7 +54,7 @@
     <br />
 
     <h2 class="text-2xl">Fitur</h2>
-    <ol>
+    <ol class="list-decimal list-inside">
       <li>Penjadwalan dan perencanaan matang</li>
       <li>Pelayanan terbaik untuk semua pelanggan</li>
       <li>Mengutamakan keselamatan radioaktif dan keselamatan kerja</li>
