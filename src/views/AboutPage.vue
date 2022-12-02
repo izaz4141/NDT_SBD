@@ -20,11 +20,11 @@
     </p>
     <br />
     <h3 class="text-xl">Misi</h3>
-    <ol>
+    <ul>
       <li>Menggunakan peralatan NDT berteknologi nuklir dengan mutu tinggi</li>
       <li>Memperluas penerapan dan lapangan kerja dan teknik NDT</li>
       <li>Menyediakan layanan NDT dengan harga yang bersaing</li>
-    </ol>
+    </ul>
     <br />
     <h3 class="text-xl">Tujuan</h3>
     <ol>

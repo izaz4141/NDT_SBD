@@ -17,7 +17,7 @@
               alt="logo-website"
               class="rounded-full w-8 h-8"
             />
-            <span>Campers</span>
+            <span>GamMAX NDT</span>
           </a>
           <button
             class="text-2xl mr-3 block pr-2 my-auto hover:bg-light-gray rounded-full"

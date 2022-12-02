@@ -20,7 +20,7 @@
             alt="logo-website"
             class="rounded-full w-8 h-8"
           />
-          <span>Campers</span>
+          <span>GamMAX NDT</span>
         </a>
       </div>
       <div
