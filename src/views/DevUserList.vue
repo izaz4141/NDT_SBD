@@ -53,6 +53,7 @@
           author_level: user.value.author_level,
         })
         data.value = resp.data
+        console.log(resp.data)
       } catch (er) {
         console.log(er)
       }

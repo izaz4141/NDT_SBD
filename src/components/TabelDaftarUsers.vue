@@ -77,6 +77,9 @@
                 </option>
               </select>
             </div>
+            <div v-else>
+              {{item.departemen ? (item.departemen.name) : ('')}}
+            </div>
           </td>
           <!-- Peminjaman -->
           <td class="w-[15vw] justify-center flex items-center overflow-auto">

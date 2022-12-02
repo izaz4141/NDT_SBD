@@ -36,7 +36,7 @@ def user_json(user):
         'password': user.password,
         'author_level': user.author_level,
         'no_hp': user.no_hp,
-        'departemen': user.departemen_id,
+        'departemen': {'id': user.departemen.id,'name': user.departemen.name} if user.departemen else None,
         'meminjam': [peminjaman_json(pinjam)\
              for pinjam in user.meminjam] if not user.meminjam is None else {'id': user.meminjam.id},
         'pekerjaan': [pemesanan_json(kerja) for kerja in user.pekerjaan],
