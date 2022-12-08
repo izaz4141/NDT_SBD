@@ -1,5 +1,4 @@
 from flask import Flask, jsonify, json, request, session
-from flask_session import Session
 from flask_cors import CORS, cross_origin
 from config import Flask_Config
 from string import ascii_letters
@@ -12,7 +11,6 @@ app.config.from_object(Flask_Config)
 
 from ..db import db
 
-server_session = Session(app)
 cors = CORS(app, supports_credentials=True)
 
 @app.route("/api", methods=['GET'])
@@ -41,8 +39,6 @@ def register_user():
         db.db.session.add(new_user)
         db.db.session.commit()
         user = db.User.query.filter_by(email=email).first()
-    
-    session['user_id'] = user.id
 
     return jsonify({
         'id': new_user.id,
@@ -53,18 +49,29 @@ def register_user():
 @cross_origin(supports_credentials=True)
 @app.route('/deleteUser', methods=["POST"])
 def delete_user():
-    data = request.json['id']
-    u_id = request.json['u_id']
+    data = request.json['user_id']
     with app.app_context():
         user = db.User.query.filter_by(id=data)
     if not user:
         return jsonify({'error': 'User not found'}), 404
-    if u_id == data:
-        session.pop('user_id')
     with app.app_context():
         db.User.query.filter_by(id=data).delete()
         db.db.session.commit()
     return '200'
+@cross_origin(supports_credentials=True)
+@app.route('/remove_user', methods=["POST"])
+def remove_user():
+    user_id = request.json['user_id']
+    author_level = request.json['author_level']
+    if author_level == 0 :
+        with app.app_context():
+            db.db.session.query(db.karyawan_pekerjaan).filter(db.karyawan_pekerjaan.c.karyawan_id == user_id).delete()
+            db.User.query.filter_by(id=user_id).delete()
+            db.db.session.commit()
+        return '200'
+    else:
+        return jsonify({'error': 'Unaothorized'}), 401
+
 @cross_origin(supports_credentials=True)
 @app.route('/login', methods=['POST'])
 def login_user():
@@ -85,28 +92,20 @@ def login_user():
     if benar is False:
         return jsonify({'error': 'Unaothorized'}), 401
     
-    session['user_id'] = user.id
 
     return jsonify({
         'id': user.id,
-        'name': user.name,
-        'email': user.email
     })
 @cross_origin(supports_credentials=True)
-@app.route('/logout', methods=['POST'])
-def logout_user():
-    session.pop('user_id')
-    return '200'
-@cross_origin(supports_credentials=True)
-@app.route('/@me', methods=['GET'])
+@app.route('/@me', methods=['POST'])
 def get_current_user():
-    user_id = session.get('user_id')
+    user_id = request.json['user_id']
 
     if not user_id:
         return jsonify({'error': 'Unaothorized'}), 401
 
     user = db.User.query.filter_by(id=user_id).first()
-    return db.user_json(user)
+    return jsonify(db.user_json(user))
 @cross_origin(supports_credentials=True)
 @app.route('/get_user', methods=['POST'])
 def get_user():

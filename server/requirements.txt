@@ -3,7 +3,6 @@ flask-sqlalchemy
 flask-session
 flask-cors
 flask-migrate
-redis
 pymysql
 python-dotenv
 bcrypt

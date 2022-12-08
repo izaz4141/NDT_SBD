@@ -19,7 +19,6 @@
         return false
       }
     } else {
-      console.log('hews')
       return true
     }
   }

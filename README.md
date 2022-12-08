@@ -25,6 +25,8 @@ Kemudian install Redis, dan package python di folder server dengan,
 pip install -r requirements.txt
 ```
 
+Jangan lupa buat database mysql bernama `ndt_sbd`
+
 ## Run Web Page
 
 ```

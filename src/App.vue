@@ -14,6 +14,7 @@
   import Footer from './components/Footer.vue'
 
   const user = ref(useStorageAsync('user', false, localStorage))
+  const user_id = ref(useStorage('user_id', '', sessionStorage))
 
   const activeMenu = ref(true)
   const themeOpen = ref(false)
@@ -22,6 +23,7 @@
   const currentDark = ref(useStorage('themeMode', useDark(), localStorage))
 
   provide('user', user)
+  provide('user_id', user_id)
   provide('currentColor', currentColor)
   provide('activeMenu', activeMenu)
   provide('themeOpen', themeOpen)
@@ -30,7 +32,9 @@
 
   const user_provider = async () => {
     try {
-      const resp = await httpClient.get('/@me')
+      const resp = await httpClient.post('/@me', {
+        user_id: user_id.value,
+      })
       user.value = resp.data
       console.log(resp.data)
     } catch (error) {
@@ -43,7 +47,10 @@
   const [contEl] = useAutoAnimate()
 
   onBeforeMount(async () => {
-    await user_provider()
+    if (user_id.value !== '') {
+      await user_provider()
+    }
+
     if (screenSize.value <= 900) {
       activeMenu.value = false
     }

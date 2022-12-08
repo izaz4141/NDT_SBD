@@ -95,6 +95,7 @@
   import httpClient from '../api/api'
 
   const user = inject('user')
+  const user_id = inject('user_id')
   const currentColor = inject('currentColor', ref('#03C9D7'))
   const profileOpen = inject('profileOpen', ref(false))
 
@@ -102,7 +103,9 @@
 
   const user_provider = async () => {
     try {
-      const resp = await httpClient.get('/@me')
+      const resp = await httpClient.post('/@me', {
+        user_id: user_id.value,
+      })
       user.value = resp.data
     } catch (error) {
       user.value = false
@@ -128,21 +131,17 @@
   }
   const handleLogout = async () => {
     try {
-      await httpClient.post('/logout', {
-        user_id: user.value.id,
-      })
-      user_provider()
+      user_id.value = ''
+      await user_provider()
     } catch (er) {
       console.log(er)
     }
   }
   const handleLogin = () => {
     router.push('/login')
-    console.log('Login')
   }
   const handleRegister = () => {
     router.push('/register')
-    console.log('Register')
   }
 </script>
 

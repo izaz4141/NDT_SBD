@@ -53,6 +53,7 @@
 
   const router = useRouter()
   const user = inject('user')
+  const user_id = inject('user_id')
   if (user.value) {
     router.push('/')
   }
@@ -65,9 +66,12 @@
 
   const user_provider = async () => {
     try {
-      const resp = await httpClient.get('/@me')
+      const resp = await httpClient.post('/@me', {
+        user_id: user_id.value,
+      })
       user.value = resp.data
     } catch (error) {
+      user.value = false
       console.log('Not Authorized')
     }
   }
