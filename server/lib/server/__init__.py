@@ -11,13 +11,13 @@ app.config.from_object(Flask_Config)
 
 from ..db import db
 
-cors = CORS(app, supports_credentials=True)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route("/api", methods=['GET'])
 def index():
     return jsonify([*map(db.user_json, db.User.query.all())])
 
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route("/register", methods=['POST'])
 def register_user():
     name = request.json['name']
@@ -46,7 +46,7 @@ def register_user():
         'email': new_user.email
     })
 
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/deleteUser', methods=["POST"])
 def delete_user():
     data = request.json['user_id']
@@ -58,7 +58,7 @@ def delete_user():
         db.User.query.filter_by(id=data).delete()
         db.db.session.commit()
     return '200'
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/remove_user', methods=["POST"])
 def remove_user():
     user_id = request.json['user_id']
@@ -72,7 +72,7 @@ def remove_user():
     else:
         return jsonify({'error': 'Unaothorized'}), 401
 
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/login', methods=['POST'])
 def login_user():
     email = request.json['email']
@@ -96,7 +96,7 @@ def login_user():
     return jsonify({
         'id': user.id,
     })
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/@me', methods=['POST'])
 def get_current_user():
     user_id = request.json['user_id']
@@ -106,7 +106,7 @@ def get_current_user():
 
     user = db.User.query.filter_by(id=user_id).first()
     return jsonify(db.user_json(user))
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/get_user', methods=['POST'])
 def get_user():
     user_id = request.json['user_id']
@@ -118,7 +118,7 @@ def get_user():
         'email': user.email,
         'no_hp': user.no_hp,
     })
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/get_karyawan')
 def get_karyawan():
     with app.app_context():
@@ -126,7 +126,7 @@ def get_karyawan():
     
     return jsonify([*map(db.user_simple, karyawan)])
 
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/dev_users_list', methods=['POST'])
 def dev_users_list():
     author_level = request.json['author_level']
@@ -134,7 +134,7 @@ def dev_users_list():
         return jsonify([*map(db.user_json, db.User.query.all())])
     else:
         return jsonify({'error': 'Unaothorized'}), 401
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/edit_user_dev', methods=['POST'])
 def edit_user_dev():
     user_id = request.json['user_id']
@@ -159,7 +159,7 @@ def edit_user_dev():
 
 
 # Pemesanan
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/order', methods=['POST'])
 def memesan():
     lokasi = request.json['lokasi']
@@ -174,7 +174,7 @@ def memesan():
         db.db.session.commit()
     
     return '200'
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/cancel_order', methods=['POST'])
 def cancel_order():
     order_id = request.json['order_id']
@@ -182,7 +182,7 @@ def cancel_order():
         db.Pemesanan.query.filter_by(id=order_id).delete()
         db.db.session.commit()
     return '200'
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/your_order_list', methods=['POST'])
 def your_order_list():
     user_id = request.json['user_id']
@@ -190,7 +190,7 @@ def your_order_list():
         user = db.User.query.filter_by(id=user_id).first()
         order = jsonify([*map(db.pemesanan_json, user.pesanan)])
     return order, 200
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/pemesanan_list', methods=['POST'])
 def pemesanan_list():
     author_level = request.json['author_level']
@@ -199,7 +199,7 @@ def pemesanan_list():
         return item_list
     else:
         return jsonify({'error': 'Not Authorized'}), 401
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/edit_pesanan', methods=['POST'])
 def edit_pesanan():
     pesanan_id = request.json['pesanan_id']
@@ -215,7 +215,7 @@ def edit_pesanan():
         # })
         db.db.session.commit()
     return '200'
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/get_kerjaan', methods=['POST'])
 def get_kerjaan():
     user_id = request.json['user_id']
@@ -227,7 +227,7 @@ def get_kerjaan():
         return list_kerjaan
     else:
         jsonify({'error': 'Not Authorized'}), 401
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/selesai_kerja', methods=['POST'])
 def selesai_kerja():
     pesanan_id = request.json['pesanan_id']
@@ -236,7 +236,7 @@ def selesai_kerja():
         pesanan.tanggal_selesai = datetime.utcnow()
         db.db.session.commit()
     return '200'
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/edit_my_kerja', methods=['POST'])
 def edit_my_kerja():
     harga = request.json['harga']
@@ -250,7 +250,7 @@ def edit_my_kerja():
     return '200'
 
 # Inventaris
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/add_inventaris', methods=['POST'])
 def add_inventaris():
     name = request.json['name']
@@ -260,7 +260,7 @@ def add_inventaris():
         db.db.session.add(new_alat)
         db.db.session.commit()
     return '200'
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/remove_inventaris', methods=['POST'])
 def remove_inventaris():
     item_id = request.json['item_id']
@@ -268,7 +268,7 @@ def remove_inventaris():
         db.Inventaris.query.filter_by(id=item_id).delete()
         db.db.session.commit()
     return '200'
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/edit_inventaris', methods=['POST'])
 def edit_inventaris():
     item_id = request.json['item_id']
@@ -282,7 +282,7 @@ def edit_inventaris():
         })
         db.db.session.commit()
     return '200'
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/inventaris_list', methods=['POST'])
 def inventaris_list():
     author_level = request.json['author_level']
@@ -292,7 +292,7 @@ def inventaris_list():
     else:
         return jsonify({'error': 'Not Authorized'}), 401
 # Peminjaman
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/meminjam', methods=['POST'])
 def meminjam():
     item_id = request.json['item_id']
@@ -304,7 +304,7 @@ def meminjam():
         db.db.session.add(peminjaman)
         db.db.session.commit()
     return '200'
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/pengembalian', methods=['POST'])
 def pengembalian():
     peminjaman_id = request.json['peminjaman_id']
@@ -320,7 +320,7 @@ def pengembalian():
         })
         db.db.session.commit()
     return '200'
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/peminjaman_list', methods=['POST'])
 def peminjaman_list():
     author_level = request.json['author_level']
@@ -329,7 +329,7 @@ def peminjaman_list():
     else:
         return jsonify({'error': 'Not Authorized'}), 401
 # Departemen
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/add_departemen', methods=['POST'])
 def add_departemen():
     name = request.json['name']
@@ -338,7 +338,7 @@ def add_departemen():
         db.db.session.add(new_departemen)
         db.db.session.commit()
     return '200'
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/remove_departemen', methods=['POST'])
 def remove_departemen():
     d_id = request.json['d_id']
@@ -346,7 +346,7 @@ def remove_departemen():
         db.Departemen.query.filter_by(id=d_id).delete()
         db.db.session.commit()
     return '200'
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/connect_departemen', methods=['POST'])
 def connect_departemen():
     d_id = request.json['d_id']
@@ -359,7 +359,7 @@ def connect_departemen():
         })
         db.db.session.commit()
     return '200'
-@cross_origin(supports_credentials=True)
+@cross_origin(origins='*')
 @app.route('/departemen_list')
 def departemen_list():
     return jsonify([*map(db.departemen_json, db.Departemen.query.all())])

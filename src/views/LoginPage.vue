@@ -30,8 +30,8 @@
 
 <script setup>
   import { ref, inject } from 'vue'
-  import { useRouter } from 'vue-router'
   import httpClient from '../api/api'
+  import { useRouter } from 'vue-router'
 
   const router = useRouter()
   const user = inject('user')
@@ -67,6 +67,7 @@
       router.push('/')
     } catch (error) {
       try {
+        console.log(error)
         if (error.response.status === 401) {
           alert('Invalid Credentials')
         }

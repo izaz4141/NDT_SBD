@@ -98,6 +98,9 @@
   import { inject, onMounted, ref, provide } from 'vue'
   import httpClient from '../api/api'
   import TextPopup from './TextPopup.vue'
+  import { useRouter } from 'vue-router'
+
+  const router = useRouter()
 
   const user = inject('user')
   const data = inject('data_myOrder')

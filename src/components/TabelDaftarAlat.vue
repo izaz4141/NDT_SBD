@@ -114,6 +114,9 @@
   import { inject, ref } from 'vue'
   import httpClient from '../api/api'
   import { Icon } from '@iconify/vue'
+  import { useRouter } from 'vue-router'
+
+  const router = useRouter()
 
   const currentColor = inject('currentColor')
   const user = inject('user')

@@ -151,6 +151,9 @@
   import httpClient from '../api/api'
   import { Icon } from '@iconify/vue'
   import TextPopup from './TextPopup.vue'
+  import { useRouter } from 'vue-router'
+
+  const router = useRouter()
 
   const currentColor = inject('currentColor')
   const user = inject('user')

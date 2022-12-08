@@ -79,6 +79,9 @@
 <script setup>
   import { inject } from 'vue'
   import httpClient from '../api/api'
+  import { useRouter } from 'vue-router'
+
+  const router = useRouter()
 
   const user = inject('user')
   const data = inject('data_peminjaman')
