@@ -1,9 +1,9 @@
 <template>
-  <div class="mx-4 my-2">
+  <div class="mx-5 my-3">
     <h1 class="text-3xl text-center font-bold">Tentang Perusahaan</h1>
     <br />
     <img
-      class="inline align-middle"
+      class="mx-auto"
       src="../assets/logo_sbd.png"
       width="200px"
       height="200px"
