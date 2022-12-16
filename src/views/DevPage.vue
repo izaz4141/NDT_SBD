@@ -8,6 +8,7 @@
       data atau komponen yang tidak bisa diubah oleh user biasa/guest. Komponen
       tersebut adalah tab Employee dan Devtools.
     </p>
+    <br/>
     <h2 class="text-2xl">Employee</h2>
     <p class="text-justify">
       Berisikan daftar pekerjaan yang sedang/akan dikerjakan, pesanan yang
