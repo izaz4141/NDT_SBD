@@ -1,21 +1,21 @@
 <template>
-  <div class="mx-4 my-3">
+  <div class="mx-5 my-3">
     <h1 class="text-3xl text-center font-bold">GamMAX NDT</h1>
     <br />
     <h2 class="text-2xl">Solusi Kebutuhan NDT Anda</h2>
     <img
-      class="inline"
+      class="mx-auto"
       src="../assets/gamma_camera.png"
       width="400px"
       height="400px"
     />
     <img
-      class="inline"
+      class="mx-auto"
       src="../assets/x-ray_set.png"
       width="400px"
       height="400px"
     />
-    <p class="text-center">
+    <p class="text-justify">
       GamMAX NDT adalah perusahaan yang bergerak di bidang jasa Uji Tak
       Rusak/Non-Destructive Test (NDT) pada bangunan dan infrastruktur.
       Perusahaan ini menawarkan jasa NDT berpresisi tinggi dengan teknologi
@@ -37,7 +37,7 @@
       <li>Teknisi yang handal dan professional</li>
     </ol>
     <br />
-    <h2 class="text-2xl">Kontak Kami:</h2>
+    <h2 class="text-xl">Kontak Kami: 17081945</h2>
   </div>
 </template>
 
