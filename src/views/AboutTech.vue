@@ -36,12 +36,17 @@
       height="200px"
     />
     <p class="text-justify">
-      Cara lain dengan komputer atau radiografi terkomputasi (CR) adalah
-      penggunaan fosfor yang dapat difotostimulasi sebagai reseptor gambar.
-      Reseptor gambar diadakan dalam casing yang mirip (kaset) dengan layar film
-      tradisional. Radiografi terkomputasi memanfaatkan penyerapan radiasi,
-      menjebak elektron pada tingkat energi melalui proses pendaran
-      fotostimulasi.
+      Gamma camera terdiri dari komponen utama yaitu satu kristal NaI(Tl) yang 
+      lebar, beberapa Photo Multiplier Tube (PMT), beberapa amplifier-ADC, dan 
+      sebuah collimator timbal. Cara kerja kamera gamma adalah sama seperti 
+      detektor sintilasi NaI(Tl), namun dengan penataan yang berbeda. Sinar 
+      gamma yang muncul akan masuk ke kollimator untuk menyeleksi sinar gamma 
+      yang datang secara lurus diloloskan. Sinar gamma yang lolos ini akan 
+      mengionisasi kristal, memunculkan elektron pada PMT dan muncul sebagai 
+      sinyal listrik. Sinyal listrik dari setiap PMT yang tersusun pada setiap 
+      titik deteksi akan dicitrakan oleh komputer penerjemah untuk menampilkan 
+      hasilnya secara visual, dengan perbedaan kecerahan gambar untuk menunjukkan 
+      besarnya pengurangan energi sinar gamma.
     </p>
     <br />
   </div>
