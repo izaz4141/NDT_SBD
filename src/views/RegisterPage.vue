@@ -77,12 +77,13 @@
   }
   const handleSubmit = async () => {
     try {
-      await httpClient.post('/register', {
+      const resp = await httpClient.post('/register', {
         name: name.value,
         email: email.value,
         password: password.value,
         no_telp: no_telp.value,
       })
+      user_id.value = resp.data.id
       user_provider()
       router.push('/')
     } catch (error) {
